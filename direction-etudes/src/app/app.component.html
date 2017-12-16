@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+      <app-liste-filieres (clicked)="getStudentsBy($event)"></app-liste-filieres>
+    </div>
+    <div class="col-lg-9">
+      <br>
+      <h1>Liste des étudiants</h1>
+
+      <form>
+        <div class="col-md-4">
+          Année:
+          <select class="form-control col-md-6" (change)="onChanged($event.target.value)">
+            <option *ngFor="let f of  ['all',1,2,3]" [selected]="all">{{f}}</option>
+          </select>
+        </div>
+      </form>
+
+
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>CIN</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Année</th>
+            <th>Filière</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of Students; let i = index">
+            <td>{{i}}
+              <td>{{s.cin}}
+                <td>{{s.nom}}
+                  <td>{{s.prenom}}
+                    <td>{{s.annee}}
+                      <td>{{s.filiere}}
+                        <td>
+                          <button data-toggle="modal" data-target="#myModal" class="btn btn-info" (click)="student=s">modifier</button>
+                          <td>
+                            <button class="btn btn-danger" (click)="deleteStudent(s.cin)">supprimer</button>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{student.prenom}} {{student.nom}}</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Filière:</label>
+            <div class="col-sm-10">
+              <select class="form-control" (change)="onChange($event.target.value,student.cin)">
+                <option *ngFor="let f of  filieres" [selected]="student.filiere == f">{{f}}</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-default" data-dismiss="modal">Valider</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

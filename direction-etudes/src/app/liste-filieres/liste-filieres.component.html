@@ -1,0 +1,6 @@
+
+    <h1 class="my-4">Liste des filières</h1>
+    <div class="list-group" >
+      <a href="#" *ngFor="let f of listeFilieres; let i = index" (click)="onClick(i)" class="list-group-item">{{i+1}}. {{f}}</a>
+
+    </div>
